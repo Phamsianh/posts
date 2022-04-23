@@ -1,0 +1,21 @@
+nav {
+    display: flex;
+    justify-content: space-between;
+    background-color: var(--dark-purple);
+    color: var(--nyanza);
+}
+
+.left, .right {
+    display: flex;
+    flex-direction: row;
+    position: relative;
+}
+
+nav .option-button {
+    opacity: 1;
+}
+
+nav .options {
+    top: 100%;
+    left: 0;
+}
