@@ -19,6 +19,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
     else if ($_GET['op'] == 'update'){
         $Comment = new Comment();
+        $old_comment = $Comment->get_from_id($Comment->check_input($_POST['id']));
+        if ($old_comment['author_id'] != current_user['id']){
+            header('Location: ' . SERVER_DOMAIN . ROOT_PATH . '/forbidden.php');
+        }
         $updated_comment = $Comment->update(
             $Comment->check_input($_POST['id']),
             $Comment->check_input($_POST['content'])
@@ -42,9 +46,15 @@ else {
         header('Location: ' . ROOT_PATH . '/posts.php?id=' . $comment['post_id'] . '#comment' . $comment['id']);
     }
     if ($_GET['op'] == 'update'){
+        if ($comment["author_id"] != current_user['id']){
+            header('Location: ' . ROOT_PATH . '/forbidden.php');
+        }
         include_once DIR_ROOT . 'view/pages/comments/update.php';
     }
     else if ($_GET['op'] == 'delete'){
+        if ($comment["author_id"] != current_user['id']){
+            header('Location: ' . ROOT_PATH . '/forbidden.php');
+        }
         include_once DIR_ROOT . 'view/pages/comments/delete.php';
     }
 }

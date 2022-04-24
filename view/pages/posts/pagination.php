@@ -1,11 +1,11 @@
 <div class="pagination">
     <div class="pages_number">
         <?php 
-        $limit = empty($_GET["limit"]) || !is_numeric($_GET["limit"]) ? 20 : intval($_GET["limit"]);
-        $offset = empty($_GET["offset"]) || !is_numeric($_GET["offset"]) ? 0 : intval($_GET["offset"]);
+        $limit = empty($_GET["limit"]) || !is_numeric($_GET["limit"]) ? 20 : abs(intval($_GET["limit"]));
+        $offset = empty($_GET["offset"]) || !is_numeric($_GET["offset"]) ? 0 : abs(intval($_GET["offset"]));
         $posts_length = $Post->length();
         $number_of_pages = intdiv($posts_length, $limit) + 1;
-        $current_page = intdiv($offset, $limit) + 1;
+        $current_page = $offset >= $posts_length? intdiv($offset, $limit) + 2 : intdiv($offset, $limit) + 1;
         $prev_page_offset = (intdiv($offset, $limit) - 1)*$limit;
         $next_page_offset = (intdiv($offset, $limit) + 1)*$limit;
         $begin_page = $current_page - 5 < 1 ? 1 : $current_page - 5;

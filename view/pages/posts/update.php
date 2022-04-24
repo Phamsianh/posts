@@ -1,6 +1,6 @@
 <div class="posts">
     <div class="post">
-        <form action="./posts.php?op=update" method="post">
+        <form action="./posts.php?op=update" method="POST">
             <input type="hidden" name="post_id" value="<?= $post['id'] ?>">
             <label>
                 Title

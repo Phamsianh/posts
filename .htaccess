@@ -5,8 +5,8 @@ RewriteCond %{REQUEST_FILENAME} !-f
 
 RewriteRule ^(.+)$ ./notfound.php
 
-RewriteRule ^authentication/(.+)$ ./forbiden.php
-RewriteRule ^controller/(.+)$ ./forbiden.php
-RewriteRule ^model/(.+)$ ./forbiden.php
-RewriteRule ^pages/(.+)$ ./forbiden.php
-RewriteRule ^view/(.+)$ ./forbiden.php
+RewriteRule ^authentication/(.+)$ ./forbidden.php
+RewriteRule ^controller/(.+)$ ./forbidden.php
+RewriteRule ^model/(.+)$ ./forbidden.php
+RewriteRule ^pages/(.+)$ ./forbidden.php
+RewriteRule ^view/(.+)$ ./forbidden.php

@@ -26,7 +26,12 @@
                 }
                 if($post['author_id'] == current_user['id']){
                     echo "<a href='" . ROOT_PATH . '/posts.php?id=' . $post['id'] . "&op=update'>Update post</a>";
-                    echo "<a href='" . ROOT_PATH . '/posts.php?id=' . $post['id'] . "&op=delete'>Delete post</a>";
+                    if(!empty($_GET["filter"]) && $_GET["filter"] == "my_posts"){
+                        echo "<a href='" . ROOT_PATH . '/posts.php?id=' . $post['id'] . "&op=delete&filter=my_posts'>Delete post</a>";
+                    }
+                    else{
+                        echo "<a href='" . ROOT_PATH . '/posts.php?id=' . $post['id'] . "&op=delete'>Delete post</a>";
+                    }
                 }
                 ?>
             </div>

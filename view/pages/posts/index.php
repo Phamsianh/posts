@@ -24,9 +24,15 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
             include_once DIR_ROOT . 'view/pages/posts/read.php';
         }
         else if ($_GET['op'] == 'update'){
+            if ($post['author_id'] != current_user['id']){
+                header('Location: ' . ROOT_PATH . '/forbidden.php');
+            }
             include_once DIR_ROOT . 'view/pages/posts/update.php';
         }
         else if ($_GET['op'] == 'delete'){
+            if ($post['author_id'] != current_user['id']){
+                header('Location: ' . ROOT_PATH . '/forbidden.php');
+            }
             include_once DIR_ROOT . 'view/pages/posts/delete.php';
         }
         else {
@@ -35,27 +41,24 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
         }
     }
     else {
+        include_once DIR_ROOT . 'model/Posts.php';
+        $Post = new Post();
         if (!empty($_GET['op']) && $_GET['op'] == 'create') {
             include_once DIR_ROOT . 'view/pages/posts/create.php';
         }
-        else if ($_GET['op'] = 'update') {
+        else {
             if(!empty($_GET["filter"]) && $_GET["filter"] == "my_posts") {
                 $posts = UserController->get_posts(current_user['id']);
                 include_once DIR_ROOT . 'view/pages/posts/read.php';
             }
             else {
-                include_once DIR_ROOT . 'model/Posts.php';
-                $Post = new Post();
                 $posts = $Post->get_all(
-                    empty($_GET["limit"]) || !is_numeric($_GET["limit"]) ? 20 : intval($_GET["limit"]), 
-                    $offset = empty($_GET["offset"]) || !is_numeric($_GET["offset"]) ? 0 : intval($_GET["offset"])
+                    empty($_GET["limit"]) || !is_numeric($_GET["limit"]) ? 20 : abs(intval($Post->check_input($_GET["limit"]))), 
+                    empty($_GET["offset"]) || !is_numeric($_GET["offset"]) ? 0 : abs(intval($Post->check_input($_GET["offset"])))
                 );
                 include_once DIR_ROOT . 'view/pages/posts/read.php';
                 include_once DIR_ROOT . 'view/pages/posts/pagination.php';
             }
-        }
-        else {
-            header('Location: ' . ROOT_PATH . '/posts.php');
         }
     }
 }
@@ -69,18 +72,22 @@ else if ($_SERVER["REQUEST_METHOD"] == "POST"){
             $Post->check_input($_POST['content']),
             $Post->check_input($_POST['description'])
         );
-        header('Location: ' . SERVER_DOMAIN . ROOT_PATH . '/posts.php#post' . $new_post['id']);
+        header('Location: ' . SERVER_DOMAIN . ROOT_PATH . '/posts.php?filter=my_posts#post' . $new_post['id']);
     }
     else if ($_GET['op'] == 'update'){
         include_once DIR_ROOT . 'model/Posts.php';
         $Post = new Post();
+        $old_post = $Post->get_from_id($Post->check_input($_POST['post_id']));
+        if ($old_post['author_id'] != current_user['id']){
+            header('Location: ' . SERVER_DOMAIN . ROOT_PATH . '/forbidden.php');
+        }
         $new_post = $Post->update(
             $Post->check_input($_POST['post_id']),
             $Post->check_input($_POST['title']),
             $Post->check_input($_POST['content']),
             $Post->check_input($_POST['description'])
         );
-        header('Location: ' . SERVER_DOMAIN . ROOT_PATH . '/posts.php#post' . $new_post['id']);
+        header('Location: ' . SERVER_DOMAIN . ROOT_PATH . '/posts.php?filter=my_posts#post' . $new_post['id']);
     }
     else {
         header('Location: ' . ROOT_PATH . '/posts.php');
