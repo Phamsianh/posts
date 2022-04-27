@@ -23,7 +23,7 @@ if(!defined('SERVER_DOMAIN')){
 }
 
 if(!defined('ROOT_PATH')){
-    define("ROOT_PATH", "/pwa/zapoctova_prace");
+    define("ROOT_PATH", "/zapoctova_prace");
 }
 
 if (!defined('TITLE')) {
