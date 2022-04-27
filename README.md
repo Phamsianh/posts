@@ -7,11 +7,11 @@
 
 ## Constants in config.php
 
-`DB_HOST`: host name of the database
-`DB_USERNAME`: username for php interact with database
-`DB_PASSWORD`: password for username
+`DB_HOST`: host name of the database  
+`DB_USERNAME`: username for php interact with database  
+`DB_PASSWORD`: password for username  
 
-`SERVER_DOMAIN`: domain name of the server
-`ROOT_PATH`: root path to the index.php file in URL
+`SERVER_DOMAIN`: domain name of the server  
+`ROOT_PATH`: root path to the index.php file in URL  
 
-`TITLE`: title of the application
+`TITLE`: title of the application  
