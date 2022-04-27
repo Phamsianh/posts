@@ -1,7 +1,7 @@
 # Steps to setup
 
 1. create database
-2. run file /model/migration/init.sql in phpMyadmin to create table and insert data.
+2. run file /model/migration/init.sql in phpMyadmin to create tables and insert data.
 3. set constants in config.php file
 
 
