@@ -15,19 +15,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $Comment->check_input($_POST['post_id']),
             $Comment->check_input($_POST['content'])
         );
-        header("Location: " . SERVER_DOMAIN . ROOT_PATH . '/posts.php#comment' . $new_comment['id']);
+        header("Location: " . ROOT_PATH . '/posts.php?id=' . $new_comment['post_id'] . '#comment' . $new_comment['id']);
     }
     else if ($_GET['op'] == 'update'){
         $Comment = new Comment();
         $old_comment = $Comment->get_from_id($Comment->check_input($_POST['id']));
         if ($old_comment['author_id'] != current_user['id']){
-            header('Location: ' . SERVER_DOMAIN . ROOT_PATH . '/forbidden.php');
+            header('Location: ' . ROOT_PATH . '/forbidden.php');
         }
         $updated_comment = $Comment->update(
             $Comment->check_input($_POST['id']),
             $Comment->check_input($_POST['content'])
         );
-        header("Location: " . SERVER_DOMAIN . ROOT_PATH . '/posts.php?id=' . $updated_comment['post_id'] . '#comment' . $updated_comment['id']);
+        header("Location: " . ROOT_PATH . '/posts.php?id=' . $updated_comment['post_id'] . '#comment' . $updated_comment['id']);
     }
 }
 else {

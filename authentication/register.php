@@ -1,4 +1,6 @@
 <?php 
+require_once dirname(__FILE__) . '/../config.php';
+include (dirname(__DIR__) . "../model/User.php");
 $errors = [
     "username" => "",
     "password" => "",
@@ -30,6 +32,12 @@ function check_username()
     $regex = "/^[a-zA-Z0-9\-_]{1,50}$/";
     if (preg_match($regex, $username) === 0) {
         $errors["username"] = "User name max length is 50, and must contain only alphanumerical character, underscore '_' or hyphen '-'";
+        return false;
+    }
+    $User = new User();
+    $existed_username = $User->get_from_username($username);
+    if (!empty($existed_username)) {
+        $errors["username"] = "User name existed";
         return false;
     }
     return true;
@@ -82,8 +90,8 @@ function check_birthdate() {
     if (empty($birthdate)) {
         return true;
     }
-    $test_birthdate  = explode('/', $birthdate);
-    if (!checkdate($test_birthdate[0], $test_birthdate[1], $test_birthdate[2])) {
+    $test_birthdate  = explode('-', $birthdate);
+    if (!checkdate($test_birthdate[1], $test_birthdate[2], $test_birthdate[0])) {
         $errors["birthdate"] = "Birthdate is not valid";
         return false;
     }
@@ -95,9 +103,9 @@ function check_phone() {
     if (empty($phone)) {
         return true;
     }
-    $regex = "/^[\d]{8,50}$/";
+    $regex = "/^[\d]{9,50}$/";
     if (preg_match($regex, $phone) === 0) {
-        $errors["firstname"] = "Phone is not valid";
+        $errors["firstname"] = "Phone number has at least 9 digit";
         return false;
     }
     return true;
@@ -105,9 +113,8 @@ function check_phone() {
 
 
 if (check_username() && check_password() && check_firstname() && check_lastname() && check_birthdate() && check_phone() ) {
-    include (dirname(__DIR__) . "../model/User.php");
     $User = new User();
     $User->post($username, $password, $firstname, $lastname, boolval($birthdate)?$birthdate:null, boolval($phone)?$phone:null);
-    header("Location: http://localhost/pwa/zapoctova_prace/login.php");
+    header("Location: " . ROOT_PATH . "/login.php");
 }
 ?>

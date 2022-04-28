@@ -1,6 +1,6 @@
 <?php
 
-include dirname(__DIR__) . '../config.php';
+include dirname(__FILE__) . '/../config.php';
 
 class BaseModel {
     protected $conn;

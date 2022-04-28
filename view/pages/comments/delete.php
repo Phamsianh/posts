@@ -5,5 +5,5 @@ if (!$comment["author_id"] == current_user["id"]){
 }
 include_once DIR_ROOT . 'model/Comments.php';
 $Comment->delete($comment['id']);
-header("Location: " . SERVER_DOMAIN . ROOT_PATH . '/posts.php?id=' . $comment['post_id']);
+header("Location: " . ROOT_PATH . '/posts.php?id=' . $comment['post_id']);
 ?>

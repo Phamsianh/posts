@@ -1,3 +1,4 @@
+CREATE DATABASE zapoctova_prace
 --
 -- Table structure for table `comments`
 --

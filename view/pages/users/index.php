@@ -15,7 +15,7 @@ if($_SERVER["REQUEST_METHOD"] == "GET") {
         include_once DIR_ROOT . 'view/pages/users/change_password.php';
     }
     else{
-        header("Location: " . SERVER_DOMAIN . ROOT_PATH . '/users.php');
+        header("Location: " . ROOT_PATH . '/users.php');
     }
 }
 else if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -27,7 +27,7 @@ else if ($_SERVER["REQUEST_METHOD"] == "POST") {
             UserController->check_input($_POST["birthdate"]),
             UserController->check_input($_POST["phone"])
         );
-        header("Location: " . SERVER_DOMAIN . ROOT_PATH . '/users.php');
+        header("Location: " . ROOT_PATH . '/users.php');
     }
     else if ($_GET["op"] == 'change_password'){
         [
@@ -52,10 +52,10 @@ else if ($_SERVER["REQUEST_METHOD"] == "POST") {
             return;
         }
         UserController->change_password(current_user['id'], $new);
-        header("Location: " . SERVER_DOMAIN . ROOT_PATH . '/users.php');
+        header("Location: " . ROOT_PATH . '/users.php');
     }
     else {
-        header("Location: " . SERVER_DOMAIN . ROOT_PATH . '/users.php');
+        header("Location: " . ROOT_PATH . '/users.php');
     }
 }
 else {

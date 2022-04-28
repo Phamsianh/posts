@@ -1,7 +1,8 @@
 <?php
 session_start();
+require_once dirname(__FILE__) . '/../config.php';
 if (!isset($_SESSION["username"])) {
-    header("Location: http://localhost/pwa/zapoctova_prace/login.php");
+    header("Location: " . ROOT_PATH ."/login.php");
     exit();
 }
 

@@ -1,5 +1,6 @@
 <?php
-include(dirname(__DIR__) . "../model/User.php");
+require_once dirname(__FILE__) . '/../config.php';
+include_once DIR_ROOT . "model/User.php";
 $User = new User();
 
 $error_username = "";
@@ -23,7 +24,7 @@ if (!empty($_POST)) {
             $login = true;
             session_start();
             $_SESSION["username"] = $user["username"];
-            header("Location: http://localhost/pwa/zapoctova_prace/users.php");
+            header("Location: " . ROOT_PATH . "/users.php");
         } 
         else {
             $login = false;

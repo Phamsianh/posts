@@ -72,14 +72,14 @@ else if ($_SERVER["REQUEST_METHOD"] == "POST"){
             $Post->check_input($_POST['content']),
             $Post->check_input($_POST['description'])
         );
-        header('Location: ' . SERVER_DOMAIN . ROOT_PATH . '/posts.php?filter=my_posts#post' . $new_post['id']);
+        header('Location: ' . ROOT_PATH . '/posts.php?filter=my_posts#post' . $new_post['id']);
     }
     else if ($_GET['op'] == 'update'){
         include_once DIR_ROOT . 'model/Posts.php';
         $Post = new Post();
         $old_post = $Post->get_from_id($Post->check_input($_POST['post_id']));
         if ($old_post['author_id'] != current_user['id']){
-            header('Location: ' . SERVER_DOMAIN . ROOT_PATH . '/forbidden.php');
+            header('Location: ' . ROOT_PATH . '/forbidden.php');
         }
         $new_post = $Post->update(
             $Post->check_input($_POST['post_id']),
@@ -87,7 +87,7 @@ else if ($_SERVER["REQUEST_METHOD"] == "POST"){
             $Post->check_input($_POST['content']),
             $Post->check_input($_POST['description'])
         );
-        header('Location: ' . SERVER_DOMAIN . ROOT_PATH . '/posts.php?filter=my_posts#post' . $new_post['id']);
+        header('Location: ' . ROOT_PATH . '/posts.php?filter=my_posts#post' . $new_post['id']);
     }
     else {
         header('Location: ' . ROOT_PATH . '/posts.php');
