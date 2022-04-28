@@ -1,4 +1,4 @@
-CREATE DATABASE zapoctova_prace
+CREATE DATABASE zapoctova_prace;
 --
 -- Table structure for table `comments`
 --
